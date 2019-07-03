@@ -2,25 +2,55 @@
 #include<stack>
 using namespace std;
 
-//Reversing a string
-string ReverseString(string s){
-    string rs = "";
-    stack<char> stk;
-    //Loop for input
-    for(int i = 0; i < s.length(); ++i) stk.push(s[i]);
+struct Node{
+    int data;
+    Node* next;
+};
 
-    //Loop for output
-    while(!stk.empty()){
-        rs += stk.top();
-        stk.pop();
+void Insert(Node** head, int x){
+    Node* temp = new Node();
+    temp->data = x;
+    temp->next = *head;
+    *head = temp;
+}
+
+void Print(Node* head){
+    cout << "Heres the list: \n";
+    while(head != NULL){
+        cout << head->data << " ";
+        head = head->next;
     }
-    return rs;
+    cout << endl;
+}
+
+//Reversing a linked list
+Node* ReverseLinkedList(Node* head){
+    if(head == NULL) return NULL;
+    stack<Node*> stk;
+    Node* temp = head;
+    while(temp != NULL){
+        stk.push(temp);
+        temp = temp->next;
+    }
+    temp = stk.top();
+    head = temp;
+    stk.pop(); //get rid of first since its assigned to head
+    while(!stk.empty()){
+        temp->next = stk.top();
+        stk.pop();
+        temp = temp->next; //go to next
+    }
+    temp->next = NULL; //last one
+    return head;
 }
 
 int main(){
-    string s;
-    cout << "Enter a word: "; cin >> s;
-    s = ReverseString(s);
-    cout << s << endl;
+    Node* head = NULL;
+    Insert(&head, 1);
+    Insert(&head, 2);
+    Insert(&head, 3);
+    Print(head);
+    head = ReverseLinkedList(head);
+    Print(head);
     return 0;
 }
