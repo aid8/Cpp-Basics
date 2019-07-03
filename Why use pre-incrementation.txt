@@ -1,0 +1,16 @@
+++i is a pre-increment; i++ is post-increment.
+The downside of post-increment is that it generates an extra value; it returns a copy of the old value while modifying i. Thus, you should avoid it when possible.
+
+++i is slightly more efficient due to its semantics:
+
+++i;  // Fetch i, increment it, and return it
+i++;  // Fetch i, copy it, increment i, return copy
+
+
+a++ is known as postfix.
+
+add 1 to a, returns the old value.
+
+++a is known as prefix.
+
+add 1 to a, returns the new value.
